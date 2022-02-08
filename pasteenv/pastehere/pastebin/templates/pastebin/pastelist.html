@@ -1,0 +1,59 @@
+{% extends 'pastebin/main.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mypaste bg-dark" >
+    <div id="headings">
+        <h5>My Paste_list</h5>
+        <h5>Public paste</h5>
+    </div>
+    <hr>
+    <div id="mylist">
+        <div id="personal-note">
+            {% for item in pasteitems %}
+            <div id="paste-list1">   
+                <div><h5>{{item.title}}</h5></div>
+                <div><a href="{% url 'delete' item.id %}">delete</a></div>
+                <div><button  id="{{item.id}}" onclick="show(id)" style="border: none; color: wheat;" class="bg-dark" >view paste </button></div>
+                
+                <textarea  id="text_area{{item.id}}"  rows="30" class="text_area" >{{item.pasteitems}}</textarea>
+            </div>  
+            {% endfor %}
+        </div>
+        <div id="recomend-note">
+            {% for item in others_pastes%}
+            <div id="paste-list2">
+                <a href="#">{{item.user}}</a>
+                <span>{{item.title}}</span>
+                <button  id="{{item.id}}" onclick="show(id)" style="border: none; color: wheat;" class="bg-dark">view paste</button>
+                <textarea  id="text_area{{item.id}}" class="text_area" rows="30">{{item.pasteitems}}</textarea>
+                <span>{{item.languages}}</span>
+            </div>
+            
+        {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function show(id){
+        var btn=document.getElementById(id)
+        var toshow=document.getElementById('text_area'+id)
+        if(toshow.style.display=='none'){
+            toshow.style.display='block';
+            btn.innerHTML='hide paste';
+        }else{
+            toshow.style.display='none';
+            btn.innerHTML='view paste';
+
+        }
+    }
+
+
+</script>
+
+
+
+
+{% endblock content %}

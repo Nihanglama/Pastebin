@@ -1,0 +1,228 @@
+#main-body{
+    background-color: black;
+    padding: 0px 200px 0px 200px;
+}
+
+.main-div {
+    margin: 0 auto;
+    
+}
+.navbar{
+    margin-top: 2px;
+    padding-top: 10px;
+    padding-bottom: 15px;
+} 
+.flex{
+    display: flex;
+    flex-direction: row;  
+}
+.flex a{
+    text-decoration: none;
+    margin-right: 10px;
+}
+.navbar li{
+    margin-left: 40px;
+}
+#paste-form{
+    padding: 30px 3px 100px 3px;
+    color: wheat;
+
+}
+#paste-head{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.toggle-btn{
+    border: none;
+}
+.mypaste{
+    margin: 0 auto;
+    color: white;
+    padding: 20px;
+}
+#paste-list1{
+    display: flex;
+    flex-direction: row;
+    column-gap: 4rem;
+    flex-wrap: wrap;
+    padding: 6px;
+    border-right:solid wheat;
+
+}
+#paste-list2{
+    display: flex;
+    flex-direction: row;
+    column-gap: 4rem;
+    flex-wrap: wrap;
+    padding: 6px;
+    border-right:solid wheat;
+
+}
+#mylist a{
+    text-decoration: none;
+}
+label{
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+#text-area{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+#submit-btn{
+    margin-left: 100px;
+
+}
+#mylist{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: white;
+    padding: 30px;
+
+}
+
+.mypaste h5{
+    text-decoration: underline;
+
+}
+#personal-note{
+    margin: 0 auto;
+
+}
+#recomend-note h5{
+    text-align:center;
+    margin-right: 40px;
+
+}
+#user-body{
+    background-color: rgb(37, 34, 34);
+}
+#top-part{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+#top-part button{    border-right: solid white;
+
+    background-color: black;
+    border-radius: 8px;
+}
+#top-part button:hover{
+    border-color: blue;
+
+}
+#main-login{
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 40px 20px;
+    border-radius: 6px;
+    background-color: black;
+    width: 650px;
+    height: 700px;
+    font-family: 'Overpass',sans-serif;
+    color: whitesmoke;
+
+}
+#input-div{
+    margin-left: 90px;
+}
+#login-div{
+    margin-top: 40px;
+}
+#login-div input{
+    height: 40px;
+    border-radius: 26px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    background-color: rgb(41, 38, 38);
+    color: white;
+    border-color: rebeccapurple;
+    padding-left: 10px;    
+}
+#login-div input:hover{
+    border-color: #111572;
+}
+#login-div button{
+    margin-top: 40px;
+    margin-bottom: 30px;
+    
+}
+#login-div label{
+    margin-left: 50px;
+
+}
+#title{
+    margin-left: 10px;
+}
+#selection{
+    margin-right: 30px;
+}
+#editor-mid{
+    text-align: end;
+    padding-right: 40px;
+}
+#editor-top{
+    background-color: white;
+}
+#editor{
+    height: 650px;
+    font-size: 20px;
+}
+#output{
+    background-color: rgb(57, 57, 68);
+    padding: 30px;
+    color: white;
+
+
+}
+.text_area{
+    width: 100%;
+    background-color: rgb(38, 38, 87);
+    padding: 30px;
+    color: white;
+    display: none;
+
+}
+#headings{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+#image{
+border-radius: 50%;
+height: 200px;
+width: 200px;
+}
+#main_body{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;
+}
+#profile_body{
+    margin: o auto;
+    background-color: black;
+    color:white;
+    border: solid snow;
+    padding:30px ;
+
+}
+
+footer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:100px;
+    color: white;
+
+}
+/* #info{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+} */
