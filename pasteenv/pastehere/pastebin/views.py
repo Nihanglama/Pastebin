@@ -46,10 +46,6 @@ def Deleteitem(request,pk):
     item.delete()
     return redirect('mypaste')
    
-def editor(request):
-    template='pastebin/editor.html'
-    return render(request,template)
-
 def Profile(request):
     template_name='pastebin/profile.html'
     form=Update_profile(instance=request.user.customer)
@@ -61,6 +57,10 @@ def Profile(request):
     context_object_name={'form':form}
 
     return render(request,template_name,context_object_name)
+
+def editor(request):
+    template='pastebin/editor.html'
+    return render(request,template)
 
 def executecode(request):
     data= parse.parse_qs((request.body).decode('utf-8'))
@@ -92,9 +92,8 @@ def executecode(request):
         else:
             print('no file')
     elif(language[0]=='c'):
-        output=None
         output=subprocess.getoutput('gcc {} -o 1'.format(complete_path))
-        exe_path='/home/nihang/Desktop/Paste/pasteenv/pastehere/1'
+        exe_path='/home/nihang/Documents/Pastebin/pasteenv/pastehere/1'
         if(os.path.exists(exe_path)):    
             output=subprocess.getoutput('./1')
             os.remove(exe_path)
@@ -104,9 +103,8 @@ def executecode(request):
             print('no file')
         print(output)
     elif(language[0]=='cpp'):
-        output=None
         output=subprocess.getoutput('g++ {} -o 2'.format(complete_path))
-        exe_path='/home/nihang/Desktop/Paste/pasteenv/pastehere/2'
+        exe_path='/home/nihang/Documents/Pastebin/pasteenv/pastehere/2'
         if(os.path.exists(exe_path)):    
             output=subprocess.getoutput('./2')
             os.remove(exe_path)
@@ -117,5 +115,5 @@ def executecode(request):
             print('no file')
         
     else:
-        print("Cannot find a specific programming langauge")
+        output='We will add editor for {} in comming updates'.format(language[0])
     return JsonResponse(output,safe=False)

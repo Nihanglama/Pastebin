@@ -1,4 +1,3 @@
-from urllib import request
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect,render
@@ -11,14 +10,12 @@ class UserLogin(LoginView):
     template_name='userhandling/login.html'
     fields='__all__'
     
-    def get_success_url(self) -> str:
+    def get_success_url(self):
         return reverse_lazy('home')
 
     def get(self,*args, **kwargs):
         if self.request.user.is_authenticated:
             return redirect('home')
-        else:
-            error(request,'incorrect username or password')
         return super(UserLogin,self).get(*args, **kwargs)
 
 

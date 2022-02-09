@@ -5,6 +5,7 @@ import os
 import django_heroku
 import dj_database_url
 from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -18,7 +19,7 @@ SECRET_KEY = 'django-insecure-*9!zt6z%(#bje#u#nqv5_wx9*m7&9)*=v6!&pawotc%u$b2bk8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','mypastebins.herokuapp.com']
 
 
 # Application definition
@@ -32,11 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pastebin.apps.PastebinConfig',
     'userhandling.apps.UserhandlingConfig',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
-    # 'django.contrib.sites',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +45,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'pastehere.urls'
@@ -69,14 +68,6 @@ TEMPLATES = [
     },
 ]
 
-# AUTHENTICATION_BACKENDS = [
-#     # Needed to login by username in Django admin, regardless of `allauth`
-#     'django.contrib.auth.backends.ModelBackend',
-
-#     # `allauth` specific authentication methods, such as login by e-mail
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# ]
-
 WSGI_APPLICATION = 'pastehere.wsgi.application'
 
 
@@ -93,7 +84,8 @@ DATABASES = {
         'PASSWORD':'adminsubash',
     }
 }
-
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+# DATABASES['default'] = dj_database_url.config(default='pastebin')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -112,6 +104,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+CORS_ALLOW_ALL_ORIGINS=True
+# CORS_ALLOWED_ORIGINS = [
+#     'https://mypastebins.herokuapp.com',
+#     'http://127.0.0.1:8000',
+# ]
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+]
+
 
 
 # Internationalization
@@ -134,6 +136,7 @@ MEDIA_URL='/images/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static/'),
 ]
+
 STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 
@@ -147,6 +150,6 @@ EMAIL_HOST ='smtp.gmail.com'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER='djangotestmail1122@gmail.com'
-EMAIL_HOST_PASSWORD=''
+EMAIL_HOST_PASSWORD='djangoprojecttestmail'
  
 django_heroku.settings(locals())

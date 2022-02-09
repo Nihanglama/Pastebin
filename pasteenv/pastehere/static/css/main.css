@@ -1,10 +1,13 @@
 #main-body{
+    position: relative;
+    min-height: 100vh;
     background-color: black;
     padding: 0px 200px 0px 200px;
 }
 
 .main-div {
     margin: 0 auto;
+    padding-bottom: 10rem;
     
 }
 .navbar{
@@ -215,14 +218,13 @@ width: 200px;
 
 footer{
     position:absolute;
-    bottom:0;
-    width:100%;
-    height:100px;
+    bottom: 0;
+    width: 79.01%;
+    height: 8rem;
     color: white;
+    padding-top: 9px;
+    padding-bottom: 30px;
+    padding-left: 8px;
+   
 
 }
-/* #info{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-} */
