@@ -1,7 +1,3 @@
-/bin
-/lib
-/lib64
-/share
-*.cfg
+/pasteenv
 *.txt
-Procfile
+
