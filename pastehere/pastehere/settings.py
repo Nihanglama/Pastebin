@@ -1,10 +1,5 @@
-import imp
-from multiprocessing.spawn import import_main_path
 from pathlib import Path
 import os
-import django_heroku
-import dj_database_url
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +14,7 @@ SECRET_KEY = 'django-insecure-*9!zt6z%(#bje#u#nqv5_wx9*m7&9)*=v6!&pawotc%u$b2bk8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','mypastebins.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','.vercel.app']
 
 
 # Application definition
@@ -68,20 +63,24 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pastehere.wsgi.application'
-
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'pastebin',
+#         'HOST':'localhost',
+#         'PORT':'5432',
+#         'USER':'postgres',
+#         'PASSWORD':'adminsubash',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pastebin',
-        'HOST':'localhost',
-        'PORT':'5432',
-        'USER':'postgres',
-        'PASSWORD':'adminsubash',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
@@ -109,6 +108,7 @@ CORS_ALLOW_ALL_ORIGINS=True
 #     'https://mypastebins.herokuapp.com',
 #     'http://127.0.0.1:8000',
 # ]
+
 CORS_ALLOW_METHODS = [
     "GET",
     "POST",
@@ -137,7 +137,6 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static/'),
 ]
 
-STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 
 # Default primary key field type
@@ -151,5 +150,3 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER='djangotestmail1122@gmail.com'
 EMAIL_HOST_PASSWORD='djangoprojecttestmail'
- 
-django_heroku.settings(locals())

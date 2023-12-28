@@ -70,50 +70,56 @@ def executecode(request):
     paths=base_dir+'/pastebin/tempfiles'
     name='tempcode.'+language[0]
     complete_path=os.path.join(paths,name)
-    code_file=open(complete_path,"w")
-    code_file.write(code[0])
-    code_file.close()
-    
-    print(language[0])
-    if(language[0]=='py'):
-        output=None
-        output=subprocess.getoutput('python3 '+complete_path)
-        print(output)
-        if(os.path.exists(complete_path)):
-            os.remove(complete_path)
-        else:
-            print('no file')
-    elif(language[0]=='java'):
-        output=None
-        output=subprocess.getoutput('java '+complete_path)
-        print(output)
-        if(os.path.exists(complete_path)):
-            os.remove(complete_path)
-        else:
-            print('no file')
-    elif(language[0]=='c'):
-        output=subprocess.getoutput('gcc {} -o 1'.format(complete_path))
-        exe_path='/home/nihang/Documents/Pastebin/pasteenv/pastehere/1'
-        if(os.path.exists(exe_path)):    
-            output=subprocess.getoutput('./1')
-            os.remove(exe_path)
-        if(os.path.exists(complete_path)):
-            os.remove(complete_path)
-        else:
-            print('no file')
-        print(output)
-    elif(language[0]=='cpp'):
-        output=subprocess.getoutput('g++ {} -o 2'.format(complete_path))
-        exe_path='/home/nihang/Documents/Pastebin/pasteenv/pastehere/2'
-        if(os.path.exists(exe_path)):    
-            output=subprocess.getoutput('./2')
-            os.remove(exe_path)
-            print(output)
-        if(os.path.exists(complete_path)):
-            os.remove(complete_path)
-        else:
-            print('no file')
+    try:
+        os.mkdir(paths)
         
-    else:
-        output='We will add editor for {} in comming updates'.format(language[0])
+    except FileExistsError:
+        print("file")
+    finally:
+        code_file=open(complete_path,"w")
+        code_file.write(code[0])
+        code_file.close()
+        
+        if(language[0]=='py'):
+            output=None
+            output=subprocess.getoutput('python3 '+complete_path)
+            print(output)
+            if(os.path.exists(complete_path)):
+                os.remove(complete_path)
+            else:
+                print('no file')
+        elif(language[0]=='java'):
+            output=None
+            output=subprocess.getoutput('java '+complete_path)
+            print(output)
+            if(os.path.exists(complete_path)):
+                os.remove(complete_path)
+            else:
+                print('no file')
+        elif(language[0]=='c'):
+            output=subprocess.getoutput('gcc {} -o 1'.format(complete_path))
+            exe_path='/home/nihang/Documents/Pastebin/pasteenv/pastehere/1'
+            if(os.path.exists(exe_path)):    
+                output=subprocess.getoutput('./1')
+                # os.remove(exe_path)
+            if(os.path.exists(complete_path)):
+                # os.remove(complete_path)
+                print("h")
+            else:
+                print('no file')
+            print(output)
+        elif(language[0]=='cpp'):
+            output=subprocess.getoutput('g++ {} -o 2'.format(complete_path))
+            exe_path='/home/nihang/Documents/Pastebin/pasteenv/pastehere/2'
+            if(os.path.exists(exe_path)):    
+                output=subprocess.getoutput('./2')
+                os.remove(exe_path)
+                print(output)
+            if(os.path.exists(complete_path)):
+                os.remove(complete_path)
+            else:
+                print('no file')
+            
+        else:
+            output='We will add editor for {} in comming updates'.format(language[0])
     return JsonResponse(output,safe=False)
