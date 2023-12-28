@@ -1,0 +1,87 @@
+{% extends 'pastebin/main.html' %} {% load static %} {% block content %}
+<div id="main-editor-div">
+  <div id="editor-top">
+    <h4 id="title">My editor</h4>
+    <div id="editor-mid">
+      <select name="langauge" id="selection" onchange="change_language()">
+        <option value="py">py</option>
+        <option value="java">java</option>
+        <option value="c">C</option>
+        <option value="cpp">c++</option>
+      </select>
+      <button onclick="execute_code()">
+        <span
+          class="iconify"
+          data-icon="codicon:run-above"
+          style="color: red; background-color: white"
+          data-width="30"
+          data-height="30"
+        ></span>
+      </button>
+    </div>
+  </div>
+  <div id="editor"></div>
+  <hr />
+  <div>
+    <span>OUTPUT:</span>
+    <div>
+      <textarea  id="output" rows="10" style="width: 100%;" disabled>
+
+      </textarea>
+    </div>
+
+    <br />
+  </div>
+</div>
+<hr>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"
+></script>
+<script src="{% static 'js/ace.js'%}"></script>
+
+<script>
+  let editor;
+  window.onload = function () {
+    editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/c_cpp");
+  };
+
+  function change_language() {
+    let language = $("#selection").val();
+    if (language == "c" || language == "cpp") {
+      editor.session.setMode("ace/mode/c_cpp");
+    } else if (language == "py") {
+      editor.session.setMode("ace/mode/python");
+    } else if (language == "php") {
+      editor.session.setMode("ace/mode/php");
+    } else if (language == "java") {
+      editor.session.setMode("ace/mode/java");
+    }
+  }
+
+  function execute_code() {
+    $.ajax({
+      url: "http://127.0.0.1:8000/executecode/",
+      method: "POST",
+      headers: {
+        CONTENT_TYPE: "application/x-www-form-urlencoded",
+        'Access-Control-Allow-Origin': 'http://127.0.0.1:8000',
+        "X-CSRFToken": csrftoken,
+      },
+      data: {
+        languages: $("#selection").val(),
+        code: editor.getSession().getValue(),
+      },
+      success: function (response) {
+        $("#output").text(response);
+        console.log(response);
+      },
+    });
+  }
+</script>
+
+{% endblock content %}

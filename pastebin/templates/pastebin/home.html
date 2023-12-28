@@ -1,0 +1,116 @@
+{% extends 'pastebin/main.html' %} {% load static %} {% block content %}
+
+<div class="mainform bg-dark">
+    <div id="paste-form">
+        <div id="toggle">
+            <button class="toggle-btn bg-dark" id="darkmode-off" onclick="toggle()">
+                <span class="iconify" data-icon="bi:toggle-off" style="color: white" data-width="40"></span>
+            </button>
+            <button class="toggle-btn bg-dark" id="darkmode-on" onclick="toggle()" style="display: none">
+                <span class="iconify" data-icon="bi:toggle-on" data-width="40"></span>
+            </button>
+        </div>
+        <hr />
+            <div id="paste-head">
+                <div><label for="pasteitem"> New paste</label></div>
+            </div>
+            <br />
+            <div>
+                <div id="editor"></div>
+                <br />
+                
+                {% if request.user.is_authenticated %}
+
+                <label for="title">Title:</label>
+                <input type="text" id="title" placeholder="file-name" id="title" required />
+                <br />
+                <label for="languages">langauge</label>
+                <select  id="languages">
+                    <option value="py">py</option>
+                    <option value="c">C</option>
+                    <option value="java">java</option>
+                    <option value="cpp">c++</option>
+                    <option value="txt">Text</option>
+                </select>
+                <br />
+                <label for="visible">visibility</label>
+                <select  id="visible">
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                </select>
+            </div>
+
+            <br />
+            <button onclick="save()" class="btn btn-primary">Paste</button>
+            {% endif %}
+        <hr />
+    </div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"
+></script>
+<script src="{% static 'js/ace.js'%}"></script>
+<script>
+
+    let editor;
+        window.onload=first()
+        function first(){
+            editor=ace.edit("editor");
+            editor.setTheme("ace/theme/solarized_dark");
+            editor.session.setMode("ace/mode/text");
+        }
+        function second(){
+            editor=ace.edit('editor');
+            editor.setTheme("ace/theme/solarized_light");
+            editor.session.setMode("ace/mode/text");
+
+
+        }
+        
+    var btn1 = document.getElementById("darkmode-off");
+    var btn2 = document.getElementById("darkmode-on");
+    function toggle() {
+        if (btn2.style.display == "none") {
+            btn2.style.display = "block";
+            btn1.style.display = "none";
+            second()
+            
+        } else {
+            btn2.style.display = "none";
+            btn1.style.display = "block";
+            first()
+            
+        }
+    }
+    function save(){
+        $.ajax({
+            url:'http://127.0.0.1:8000/formdata/',
+            method:'POST',
+            headers:{
+                CONTENT_TYPE:'application/x-www-form-urlencoded',
+                'Access-Control-Allow-Origin': 'http://127.0.0.1:8000',
+                'X-CSRFToken':csrftoken,
+
+            },
+            data:{
+                language:$('#languages').val(),
+                title:$('#title').val(),
+                visibility:$('#visible').val(),
+                code:editor.getSession().getValue(),
+            },
+            success:function (response){
+                alert(response)
+                location.reload()
+            }
+        })
+    
+}
+
+    
+
+</script>
+
+{% endblock content %}
